@@ -22,33 +22,34 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: No, they are not the same. The "String!" is an unwrapped optional, it can be nil but once it has a value it is immutable. Whereas the "String?" can be set to nil and will need to be unwrapped (dereferenced) when you need to see its value.
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(_ words: [String]) -> Bool {
-        let reversedWords = words.map() {String($0.characters.reversed())}
+    class func arePalindromes(_ words: [String]) -> Bool {
+        let reversedWords = words.map() {$0.characters.reversed()}
         let numElements = words.count
         
         for i in 0 ..< numElements {
-            if words[i] != reversedWords[i] {
+            if words[i] != String(reversedWords[i]) {
                 return false
             }
         }
+         return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: Inside the for loop we were trying to compare strings with characters. You were casting the list of strings to a string, but we need to cast the individual characters to strings. We needed to declare it as a class function.
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+     func isAnagram() -> Bool {
+        var countLetters = [Character: Int]() //Line X
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,13 +76,13 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
         
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -89,7 +90,7 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: We need to intialize the countletters variable. We need to change the class isAnagram to be an instance of the words class.
     
     
 }
